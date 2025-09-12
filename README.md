@@ -13,3 +13,6 @@ TEMATICA
 
 Sistema de registro de carreras realizadas en un kartodromo privado
 
+## DER:
+
+![DER](./DER.png)
