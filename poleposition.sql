@@ -92,7 +92,7 @@ ALTER TABLE `pilotos`
 --
 ALTER TABLE `resultados`
   ADD PRIMARY KEY (`resultado_id`),
-  ADD UNIQUE KEY `fk_piloto_id` (`piloto_id`),
+  ADD KEY `fk_piloto_id` (`piloto_id`),
   ADD KEY `fk_resultados_carrera` (`carrera_id`);
 
 --
