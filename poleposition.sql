@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 12, 2025 at 11:31 PM
+-- Generation Time: Sep 15, 2025 at 07:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -59,6 +59,18 @@ CREATE TABLE `resultados` (
   `tiempo` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `usuario_id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `pass` char(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -80,8 +92,14 @@ ALTER TABLE `pilotos`
 --
 ALTER TABLE `resultados`
   ADD PRIMARY KEY (`resultado_id`),
-  ADD KEY `fk_resultados_piloto` (`piloto_id`),
+  ADD UNIQUE KEY `fk_piloto_id` (`piloto_id`),
   ADD KEY `fk_resultados_carrera` (`carrera_id`);
+
+--
+-- Indexes for table `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`usuario_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -104,6 +122,12 @@ ALTER TABLE `pilotos`
 --
 ALTER TABLE `resultados`
   MODIFY `resultado_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
