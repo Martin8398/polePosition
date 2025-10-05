@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /polePosition/
+
+  # Excepciones: no pasar por router si son archivos estáticos
+  RewriteCond %{REQUEST_URI} ^/polePosition/css/ [NC,OR]
+  RewriteCond %{REQUEST_URI} ^/polePosition/assets/ [NC]
+  RewriteRule ^ - [L]
+
+  # Si existe archivo o carpeta, lo sirve directo
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # Home → manda a router con action=home (o la que uses)
+  RewriteRule ^$ router.php?action=home [QSA,L]
+
+  # Todo lo demás va al router
+  RewriteRule ^(.*)$ router.php?action=$1 [QSA,L]
+</IfModule>
