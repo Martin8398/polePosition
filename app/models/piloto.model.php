@@ -36,14 +36,15 @@ class PilotoModel
         return $Query->fetch(PDO::FETCH_OBJ);
     }
 
-    public function addPiloto($nombre, $apellido)
+    public function addPiloto($nombre, $apellido, $foto = null)
     {
-        $Query = $this->db->prepare("INSERT INTO pilotos (nombre, apellido) VALUES (:nombre, :apellido)");
-        $Query->bindParam('nombre', $nombre);
-        $Query->bindParam('apellido', $apellido);
-        $Query->execute();
-        $id = $this->db->lastInsertId();
-        return $id;
+        $query = $this->db->prepare("INSERT INTO pilotos (nombre, apellido, foto) VALUES (:nombre, :apellido, :foto)");
+        $query->bindParam(':nombre', $nombre);
+        $query->bindParam(':apellido', $apellido);
+        $query->bindParam(':foto', $foto);
+        $query->execute();
+
+        return $this->db->lastInsertId();
     }
 
     public function deletePiloto($id)

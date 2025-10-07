@@ -85,7 +85,6 @@ switch ($params[0]) {
     case 'piloto':
         sessionAuthMiddleware($res);
 
-
         $pilotoModel = new PilotoModel();
         $resultadoModel = new ResultadoModel();
         $view = new PilotoView();
@@ -97,6 +96,18 @@ switch ($params[0]) {
 
         $controller->showPiloto($id);
         break;
+
+    case 'pilotoNuevo':
+        sessionAuthMiddleware($res);
+        $controller = new PilotoController();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $controller->createPiloto(); // procesa el POST
+        } else {
+            $controller->showFormPiloto(); // muestra el form vacío
+        }
+        break;
+
 
     default:
         echo "404 - Página no encontrada";

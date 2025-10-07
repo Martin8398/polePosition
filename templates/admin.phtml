@@ -3,8 +3,8 @@
     <main class="flex-grow-1">
         <h1>Hola, <span class="navbar-text me-3"><?= htmlspecialchars($_SESSION['usuario']); ?></span></h1>
         <h2>Contenido del panel de administración</h2>
-         <a class="btn btn-custom" href="<?= BASE_URL ?>piloto/<?= $r->piloto_id ?>">Nuevo Piloto</a>
-         <a class="btn btn-custom" href="<?= BASE_URL ?>piloto/<?= $r->piloto_id ?>">Nuevo Piloto</a>
+         <a class="btn btn-custom" href="<?= BASE_URL ?>pilotoNuevo">Nuevo Piloto</a>
+         <a class="btn btn-custom" href="<?= BASE_URL ?>carrera/create">Nueva Carrera</a>
     </main>
     <?php require 'templates/layout/footer.phtml' ?>
 </div>

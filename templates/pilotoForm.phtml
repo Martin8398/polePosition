@@ -1,0 +1,27 @@
+<?php require 'templates/layout/header.phtml' ?>
+
+<div class="container py-5 mt-5">
+    <h2>Crear Piloto</h2>
+
+    <form method="POST" action="<?= BASE_URL ?>pilotoNuevo" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellido" name="apellido" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="foto" class="form-label">Foto (opcional)</label>
+            <input type="file" class="form-control" id="foto" name="foto">
+        </div>
+
+        <button type="submit" class="btn btn-success">Crear Piloto</button>
+        <a href="<?= BASE_URL ?>pilotos" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+<?php require 'templates/layout/footer.phtml' ?>

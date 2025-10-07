@@ -48,4 +48,53 @@ class PilotoController
         // var_dump($resultados);die();
         $this->view->showPiloto($piloto, $resultados);
     }
+
+    function showFormPiloto()
+    {
+        require "templates/pilotoForm.phtml";
+    }
+
+    function createPiloto()
+    {
+        $nombre = $_POST['nombre'];
+        $apellido = $_POST['apellido'];
+        $foto = null;
+
+        if (empty($nombre) || empty($apellido)) {
+            die("Faltan datos obligatorios.");
+        }
+
+        if (!empty($_FILES['foto']['name'])) {
+            $targetDir = "assets/pilotos/";
+            $fileName = uniqid() . '_' . basename($_FILES['foto']['name']);
+            $targetFile = $targetDir . $fileName;
+            $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+
+            $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+            if (!in_array($fileType, $allowedTypes)) {
+                die("Tipo de archivo no permitido. Solo JPG, JPEG, PNG o GIF.");
+            }
+
+
+            if ($_FILES['foto']['size'] > 2 * 1024 * 1024) {
+                die("La imagen es demasiado grande. Máximo 2MB.");
+            }
+
+            $check = getimagesize($_FILES['foto']['tmp_name']);
+            if ($check === false) {
+                die("El archivo no es una imagen válida.");
+            }
+
+            if (move_uploaded_file($_FILES['foto']['tmp_name'], $targetFile)) {
+                $foto = $fileName; // Guardamos solo el nombre del archivo en la BD
+            } else {
+                die("Error al subir la imagen.");
+            }
+        }
+
+        $id = $this->model->addPiloto($nombre, $apellido, $foto);
+
+        header("Location: " . BASE_URL . "piloto/" . $id);
+        exit;
+    }
 }

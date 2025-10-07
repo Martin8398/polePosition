@@ -11,8 +11,8 @@
                         </h2>
                     </div>
                     <div class="img-custom d-flex justify-content-end">
-                        <?php if (!empty($piloto->foto) && file_exists("assets/pilotos/" . $p->foto)): ?>
-                            <img src="<?= BASE_URL ?>assets/pilotos/<?= $p->foto ?>" class="card-img-top" alt="<?= htmlspecialchars($piloto->nombre) ?>">
+                        <?php if (!empty($piloto->foto) && file_exists("assets/pilotos/" . $piloto->foto)): ?>
+                            <img src="<?= BASE_URL ?>assets/pilotos/<?= $piloto->foto ?>" class="card-img-top" alt="<?= htmlspecialchars($piloto->nombre) ?>">
                         <?php else: ?>
                             <img src="<?= BASE_URL ?>assets/pilotos/pilotoDefault.jpg" class="card-img-top" alt="Piloto sin foto">
                         <?php endif; ?>
