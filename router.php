@@ -125,9 +125,9 @@ switch ($params[0]) {
         $controller->showPilotos('adminPilotos.phtml');
         break;
     
-    case 'eliminarPiloto':
-        sessionAuthMiddleware($res);
-        $model = new 
+    // case 'eliminarPiloto':
+    //     sessionAuthMiddleware($res);
+    //     $model = new 
 
 
     default:
