@@ -1,0 +1,27 @@
+<?php require 'templates/layout/header.phtml' ?>
+
+<div class="d-flex flex-column min-vh-100">
+    <main class="flex-grow-1">
+
+        <div class="container py-5 mt-5">
+            <h2>Crear Carrera</h2>
+
+            <form method="POST" action="<?= BASE_URL ?>pilotoNuevo" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Vueltas</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="apellido" class="form-label">Fecha</label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" required>
+                </div>
+
+                <button type="submit" class="btn btn-success">Crear Carrera</button>
+                <a href="<?= BASE_URL ?>pilotos" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </main>
+    <!-- Footer (se mantiene abajo incluso si hay poco contenido) -->
+    <?php require 'templates/layout/footer.phtml' ?>
+</div>

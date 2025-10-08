@@ -17,7 +17,7 @@ class PilotoController
         $this->resultadoModel = new ResultadoModel();
     }
 
-    public function showPilotos()
+    public function showPilotos($vista = 'pilotos.phtml')
     {
         $search = isset($_GET['q']) ? trim($_GET['q']) : '';
 
@@ -27,7 +27,13 @@ class PilotoController
             $pilotos = $this->model->getPilotos();
         }
 
-        require 'templates/pilotos.phtml';
+        // Validar que el template exista
+        $templatePath = 'templates/' . $vista;
+        if (!file_exists($templatePath)) {
+            die("Template no encontrado: $vista");
+        }
+
+        require $templatePath;
     }
 
     function showPiloto($id)

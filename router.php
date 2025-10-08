@@ -79,7 +79,7 @@ switch ($params[0]) {
     case 'pilotos':
         sessionAuthMiddleware($res);
         $controller = new PilotoController();
-        $controller->showPilotos();
+        $controller->showPilotos('pilotos.phtml');
         break;
 
     case 'piloto':
@@ -107,6 +107,27 @@ switch ($params[0]) {
             $controller->showFormPiloto(); // muestra el form vacío
         }
         break;
+
+    case 'carreraNueva':
+        sessionAuthMiddleware($res);
+        $controller = new CarreraController();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $controller->addCarrera();
+        } else {
+            $controller->showFormCarrera();
+        }
+        break;
+
+    case 'editarPilotos':
+        sessionAuthMiddleware($res);
+        $controller = new PilotoController();
+        $controller->showPilotos('adminPilotos.phtml');
+        break;
+    
+    case 'eliminarPiloto':
+        sessionAuthMiddleware($res);
+        $model = new 
 
 
     default:

@@ -49,15 +49,19 @@ class CarreraController
         $this->view->showCarrera($carrera, $resultados);
     }
 
+    function showFormCarrera()
+    {
+        require "templates/carreraForm.phtml";
+    }
 
     public function addCarrera()
     {
 
         if (isset($_POST['fecha'], $_POST['vueltas'])) {
-            $fecha   = filter_var($_POST['fecha'], FILTER_SANITIZE_STRING);
+            $fecha = ($_POST['fecha']);
             $vueltas = filter_var($_POST['vueltas'], FILTER_VALIDATE_INT);
 
-            if ($fecha && $vueltas > 0) {
+            if (!empty($fecha) && $vueltas !== false && $vueltas > 0) {
                 $carrera_id = $this->model->addCarrera($fecha, $vueltas);
 
                 // si además mandás pilotos y posiciones en el form
