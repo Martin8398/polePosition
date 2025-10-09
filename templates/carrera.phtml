@@ -1,0 +1,86 @@
+<?php require 'templates/layout/header.phtml'; ?>
+
+<div class="d-flex flex-column min-vh-100">
+
+    <main class="flex-grow-1">
+        <?php if ($carrera): ?>
+            <div class="container py-5 mt-5">
+                <h1 class="mb-4">Detalles de la Carrera</h1>
+
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card text-white bg-custom mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Fecha</h5>
+                                <p class="card-text"><?= htmlspecialchars($carrera->fecha) ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-white bg-custom mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Vueltas</h5>
+                                <p class="card-text"><?= htmlspecialchars($carrera->vueltas) ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-white bg-custom mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Participantes</h5>
+                                <p class="card-text"><?= count($resultados) ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <?php if (!empty($resultados)): ?>
+                    <h2 class="mb-3">Resultados</h2>
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Posición</th>
+                                <th>Piloto</th>
+                                <th>Tiempo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($resultados as $r): ?>
+                                <?php
+                                $rowClass = '';
+                                if ($r->posicion == 1) $rowClass = 'table-warning bg-custom2';
+                                elseif ($r->posicion == 2) $rowClass = 'table-secondary bg-gradient';
+                                elseif ($r->posicion == 3) $rowClass = 'table-danger bg-gradient';
+                                ?>
+                                <tr class="<?= $rowClass ?>">
+                                    <td><?= htmlspecialchars($r->posicion) ?></td>
+                                    <td><?= htmlspecialchars($r->nombre . ' ' . $r->apellido) ?></td>
+                                    <td><?= htmlspecialchars($r->tiempo) ?></td>
+                                    <td>
+                                        <a class="btn btn-custom" href="<?= BASE_URL ?>piloto/<?= $r->piloto_id ?>">Ver detalles</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+
+                    <div class="alert bg-custom2 mt-3">
+                        <strong>Ganador:</strong> <?= htmlspecialchars($resultados[0]->nombre . ' ' . $resultados[0]->apellido) ?>
+                        con tiempo <?= htmlspecialchars($resultados[0]->tiempo) ?>
+                    </div>
+                <?php else: ?>
+                    <div class="alert alert-info">No hay resultados cargados para esta carrera.</div>
+                <?php endif; ?>
+            </div>
+
+        <?php else: ?>
+            <div class="container my-5">
+                <div class="alert alert-danger">No se encontraron detalles de la carrera.</div>
+            </div>
+        <?php endif; ?>
+    </main>
+
+    <!-- Footer fijo al fondo -->
+    <?php require 'templates/layout/footer.phtml'; ?>
+</div>

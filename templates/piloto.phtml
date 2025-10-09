@@ -1,0 +1,56 @@
+<?php require 'templates/layout/header.phtml' ?>
+
+<div class="d-flex flex-column min-vh-100">
+    <main class="flex-grow-1">
+        <div class="container py-5 mt-5">
+            <div class="card mb-5 shadow d-flex">
+                <div class="d-flex align-items-center">
+                    <div class="d-flex">
+                        <h2>
+                            <?= htmlspecialchars($piloto->nombre . ' ' . $piloto->apellido) ?>
+                        </h2>
+                    </div>
+                    <div class="img-custom d-flex justify-content-end">
+                        <?php if (!empty($piloto->foto) && file_exists("assets/pilotos/" . $piloto->foto)): ?>
+                            <img src="<?= BASE_URL ?>assets/pilotos/<?= $piloto->foto ?>" class="card-img-top" alt="<?= htmlspecialchars($piloto->nombre) ?>">
+                        <?php else: ?>
+                            <img src="<?= BASE_URL ?>assets/pilotos/pilotoDefault.jpg" class="card-img-top" alt="Piloto sin foto">
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+
+            <?php if (!empty($resultados)): ?>
+                <div class="table-responsive">
+                    <table class="table table-hover text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Posición</th>
+                                <th>Tiempo</th>
+                                <th>Fecha</th>
+                                <th>Vueltas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($resultados as $resultado): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($resultado->posicion) ?></td>
+                                    <td><?= htmlspecialchars($resultado->tiempo) ?></td>
+                                    <td><?= htmlspecialchars($resultado->fecha) ?></td>
+                                    <td><?= htmlspecialchars($resultado->vueltas) ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php else: ?>
+                <div class="alert alert-warning mt-3 text-center">
+                    Este piloto todavía no tiene carreras registradas.
+                </div>
+            <?php endif; ?>
+
+        </div>
+    </main>
+
+    <?php require 'templates/layout/footer.phtml' ?>
+</div>

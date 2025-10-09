@@ -1,0 +1,42 @@
+<?php require 'templates/layout/header.phtml' ?>
+
+<div class="d-flex flex-column min-vh-100">
+    <main class="flex-grow-1">
+        <div class="container py-5 mt-5">
+            <h1 class="mb-4">Carreras</h1>
+
+            <?php if (!empty($carreras)): ?>
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Vueltas</th>
+                            <th>Ganador</th>
+                            <th>Apellido</th>
+                            <th>Tiempo</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($carreras as $c): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($c->fecha) ?></td>
+                                <td><?= htmlspecialchars($c->vueltas) ?></td>
+                                <td><?= $c->ganador ? htmlspecialchars($c->ganador->nombre) : 'Sin resultados' ?></td>
+                                <td><?= $c->ganador ? htmlspecialchars($c->ganador->apellido) : 'Sin resultados' ?></td>
+                                <td><?= $c->ganador ? htmlspecialchars($c->ganador->tiempo) : '-' ?></td>
+                                <td>
+                                    <a class="btn btn-custom" href="<?= BASE_URL ?>carrera/<?= $c->carrera_id ?>">Ver detalles</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <div class="alert alert-info">No hay carreras cargadas.</div>
+            <?php endif; ?>
+        </div>
+    </main>
+
+    <?php require 'templates/layout/footer.phtml' ?>
+</div>
