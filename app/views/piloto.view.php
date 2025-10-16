@@ -21,10 +21,10 @@ class PilotoView
         require 'templates/error.phtml';
     }
 
-    public function AddPiloto($piloto)
+    public function ShowFormPiloto()
     {
 
-        require 'templates/formAgregar.phtml';
+        require 'templates/pilotoForm.phtml';
     }
 
     public function UpdatePiloto($piloto)

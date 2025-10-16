@@ -8,11 +8,27 @@ class ResultadoModel
     }
 
 
+    public function addResultado($carrera_id, $piloto_id, $posicion, $tiempo)
+    {
+        $query = $this->db->prepare("
+        INSERT INTO resultados (carrera_id, piloto_id, posicion, tiempo)
+        VALUES (:carrera_id, :piloto_id, :posicion, :tiempo)
+    ");
+
+        $query->execute([
+            ':carrera_id' => $carrera_id,
+            ':piloto_id'  => $piloto_id,
+            ':posicion'   => $posicion,
+            ':tiempo'     => $tiempo
+        ]);
+    }
+
     // Trae todos los resultados de una carrera específica
     public function getResultadosCarrera($carrera_id)
     {
         $query = $this->db->prepare("
             SELECT 
+                r.resultado_id,
                 r.posicion, 
                 r.tiempo, 
                 p.piloto_id,
@@ -45,5 +61,26 @@ class ResultadoModel
         $query->bindParam(':id', $piloto_id, PDO::PARAM_INT);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function updateResultado($resultado_id, $piloto_id, $posicion, $tiempo)
+    {
+        $query = $this->db->prepare("
+        UPDATE resultados 
+        SET piloto_id = :piloto_id, posicion = :posicion, tiempo = :tiempo
+        WHERE resultado_id = :resultado_id
+    ");
+        $query->bindParam(':resultado_id', $resultado_id, PDO::PARAM_INT);
+        $query->bindParam(':piloto_id', $piloto_id, PDO::PARAM_INT);
+        $query->bindParam(':posicion', $posicion, PDO::PARAM_INT);
+        $query->bindParam(':tiempo', $tiempo, PDO::PARAM_STR);
+        $query->execute();
+    }
+
+    public function deleteResultado($resultado_id)
+    {
+        $query = $this->db->prepare("DELETE FROM resultados WHERE resultado_id = :resultado_id");
+        $query->bindParam(':resultado_id', $resultado_id, PDO::PARAM_INT);
+        $query->execute();
     }
 }

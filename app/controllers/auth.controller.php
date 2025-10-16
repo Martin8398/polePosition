@@ -68,7 +68,6 @@ class AuthController
         exit();
     }
 
-    //consultar con agus si es necesario aca o en la view de auth
 
     public function showAdmin()
     {

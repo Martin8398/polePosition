@@ -6,19 +6,19 @@
         <div class="container py-5 mt-5">
             <h2>Crear Carrera</h2>
 
-            <form method="POST" action="<?= BASE_URL ?>pilotoNuevo" enctype="multipart/form-data">
+            <form method="POST" action="<?= BASE_URL ?>carreraNueva" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label for="nombre" class="form-label">Vueltas</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    <label for="vueltas" class="form-label">Vueltas</label>
+                    <input type="number" class="form-control" id="vueltas" name="vueltas" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="apellido" class="form-label">Fecha</label>
-                    <input type="text" class="form-control" id="apellido" name="apellido" required>
+                    <label for="fecha" class="form-label">Fecha</label>
+                    <input type="date" class="form-control" id="fecha" name="fecha" required>
                 </div>
 
                 <button type="submit" class="btn btn-success">Crear Carrera</button>
-                <a href="<?= BASE_URL ?>pilotos" class="btn btn-secondary">Cancelar</a>
+                <a href="<?= BASE_URL ?>admin" class="btn btn-secondary">Cancelar</a>
             </form>
         </div>
     </main>

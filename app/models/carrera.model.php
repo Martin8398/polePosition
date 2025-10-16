@@ -88,4 +88,26 @@ class CarreraModel
         $query->execute();
         return $query->fetch(PDO::FETCH_OBJ);
     }
+
+    public function deleteCarrera($carrera_id)
+    {
+        // Primero, eliminar los resultados asociados a la carrera
+        $queryResultados = $this->db->prepare("DELETE FROM resultados WHERE carrera_id = :carrera_id");
+        $queryResultados->bindParam(':carrera_id', $carrera_id, PDO::PARAM_INT);
+        $queryResultados->execute();
+
+        // Luego, eliminar la carrera
+        $queryCarrera = $this->db->prepare("DELETE FROM carreras WHERE carrera_id = :carrera_id");
+        $queryCarrera->bindParam(':carrera_id', $carrera_id, PDO::PARAM_INT);
+        $queryCarrera->execute();
+    }
+
+    public function updateCarrera($carrera_id, $fecha, $vueltas)
+    {
+        $query = $this->db->prepare("UPDATE carreras SET fecha = :fecha, vueltas = :vueltas WHERE carrera_id = :carrera_id");
+        $query->bindParam(':fecha', $fecha, PDO::PARAM_STR);
+        $query->bindParam(':vueltas', $vueltas, PDO::PARAM_INT);
+        $query->bindParam(':carrera_id', $carrera_id, PDO::PARAM_INT);
+        $query->execute();
+    }
 }

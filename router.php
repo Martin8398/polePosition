@@ -13,6 +13,7 @@ require_once './app/controllers/auth.controller.php';
 require_once './app/controllers/carrera.controller.php';
 require_once './app/controllers/piloto.controller.php';
 require_once './app/controllers/app.controler.php';
+require_once './app/controllers/resultado.controller.php';
 
 require_once 'app/models/resultado.model.php';
 require_once 'app/models/piloto.model.php';
@@ -59,6 +60,8 @@ switch ($params[0]) {
         $controller->showAdmin();
         break;
 
+    // Carreras
+
     case 'carreras':
         sessionAuthMiddleware($res);
         $controller = new CarreraController();
@@ -69,12 +72,54 @@ switch ($params[0]) {
         sessionAuthMiddleware($res);
         $carreraModel = new CarreraModel();
         $resultadoModel = new ResultadoModel();
-        $view = new CarreraView();
-        $controller = new CarreraController($carreraModel, $resultadoModel, $view);
-
+        $controller = new CarreraController($carreraModel, $resultadoModel);
         $id = isset($params[1]) ? intval($params[1]) : null;
         $controller->showCarrera($id);
         break;
+
+    case 'carreraNueva':
+        sessionAuthMiddleware($res);
+        $controller = new CarreraController();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $controller->addCarrera();
+        } else {
+            $controller->showFormCarrera();
+        }
+        break;
+
+    case 'updateCarrera':
+        sessionAuthMiddleware($res);
+        $controller = new CarreraController();
+        $controller->updateCarrera();
+        break;
+
+    case 'deleteCarrera':
+        sessionAuthMiddleware($res);
+        $controller = new CarreraController();
+        $controller->deleteCarrera();
+        break;
+
+    // Resultados
+
+    case 'addResultado':
+        sessionAuthMiddleware($res);
+        $controller = new ResultadoController();
+        $controller->addResultado();
+        break;
+
+    case 'updateResultado':
+        sessionAuthMiddleware($res);
+        $controller = new ResultadoController();
+        $controller->updateResultado();
+        break;
+
+    case 'deleteResultado':
+        sessionAuthMiddleware($res);
+        $controller = new ResultadoController();
+        $controller->deleteResultado();
+        break;
+
+    //Pilotos
 
     case 'pilotos':
         sessionAuthMiddleware($res);
@@ -88,8 +133,6 @@ switch ($params[0]) {
         $pilotoModel = new PilotoModel();
         $resultadoModel = new ResultadoModel();
         $view = new PilotoView();
-
-
         $controller = new PilotoController($pilotoModel, $resultadoModel, $view);
 
         $id = isset($params[1]) ? intval($params[1]) : null;
@@ -108,27 +151,17 @@ switch ($params[0]) {
         }
         break;
 
-    case 'carreraNueva':
-        sessionAuthMiddleware($res);
-        $controller = new CarreraController();
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $controller->addCarrera();
-        } else {
-            $controller->showFormCarrera();
-        }
-        break;
-
     case 'editarPilotos':
         sessionAuthMiddleware($res);
         $controller = new PilotoController();
         $controller->showPilotos('adminPilotos.phtml');
         break;
-    
-    // case 'eliminarPiloto':
-    //     sessionAuthMiddleware($res);
-    //     $model = new 
 
+    case 'eliminarPiloto':
+        sessionAuthMiddleware($res);
+        $model = new PilotoModel();
+        $controller = new PilotoController($model);
+        break;
 
     default:
         echo "404 - Página no encontrada";

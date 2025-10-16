@@ -57,7 +57,7 @@ class PilotoController
 
     function showFormPiloto()
     {
-        require "templates/pilotoForm.phtml";
+        $this->view->showFormPiloto();
     }
 
     function createPiloto()

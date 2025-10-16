@@ -7,29 +7,26 @@ class CarreraView
     public function showCarreras($carreras)
     {
         $count = count($carreras);
-         require './templates/carreras.phtml';
+        require './templates/carreras.phtml';
     }
 
-    public function showCarrera($carrera, $resultados)
+    public function showCarrera($carrera, $resultados, $usuarioLogueado, $pilotos)
     {
         require './templates/carrera.phtml';
     }
 
     public function showError($error)
     {
-
         require 'templates/error.phtml';
     }
 
-    public function verFormAgregar($piloto)
+    function showFormCarrera()
     {
-
-        require 'templates/formAgregar.phtml';
+        require "templates/carreraForm.phtml";
     }
 
     public function verFormActualizar($carrera, $piloto)
     {
-
         require 'templates/formActualizar.phtml';
     }
 }

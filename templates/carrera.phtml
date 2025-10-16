@@ -33,6 +33,113 @@
                         </div>
                     </div>
                 </div>
+                <?php if (isset($_SESSION['usuario'])): ?>
+                    <div class="text-end mb-3">
+                        <button type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#agregarResultadoModal">
+                            Agregar Resultado
+                        </button>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarCarreraModal">
+                            Editar Carrera
+                        </button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarCarreraModal">
+                            Eliminar Carrera
+                        </button>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="agregarResultadoModal" tabindex="-1" aria-labelledby="agregarResultadoModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-custom text-white">
+                                    <h5 class="modal-title" id="agregarResultadoModalLabel">Agregar Resultado</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="<?= BASE_URL ?>addResultado" method="POST">
+                                        <input type="hidden" name="carrera_id" value="<?= $carrera->carrera_id ?>">
+
+                                        <div class="mb-3">
+                                            <label for="piloto_id" class="form-label">Piloto</label>
+                                            <select class="form-select" name="piloto_id" id="piloto_id" required>
+                                                <option value="" selected disabled>Seleccionar piloto</option>
+                                                <?php foreach ($pilotos as $p): ?>
+                                                    <option value="<?= $p->piloto_id ?>">
+                                                        <?= htmlspecialchars($p->nombre . ' ' . $p->apellido) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="posicion" class="form-label">Posición</label>
+                                            <input type="number" class="form-control" name="posicion" id="posicion" min="1" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="tiempo" class="form-label">Tiempo</label>
+                                            <input type="text" class="form-control" name="tiempo" id="tiempo" placeholder="Ej: 1:32.500" required>
+                                        </div>
+
+                                        <div class="text-end">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-custom">Guardar Resultado</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="editarCarreraModal" tabindex="-1" aria-labelledby="editarCarreraModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-warning text-white">
+                                    <h5 class="modal-title" id="editarCarreraModalLabel">Editar Carrera</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="<?= BASE_URL ?>updateCarrera" method="POST">
+                                        <input type="hidden" name="carrera_id" value="<?= $carrera->carrera_id ?>">
+
+                                        <div class="mb-3">
+                                            <label for="fecha" class="form-label">Fecha</label>
+                                            <input type="date" class="form-control" name="fecha" id="fecha" value="<?= htmlspecialchars($carrera->fecha) ?>" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="vueltas" class="form-label">Vueltas</label>
+                                            <input type="number" class="form-control" name="vueltas" id="vueltas" value="<?= htmlspecialchars($carrera->vueltas) ?>" min="1" required>
+                                        </div>
+
+                                        <div class="text-end">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="eliminarCarreraModal" tabindex="-1" aria-labelledby="eliminarCarreraModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-danger text-white">
+                                    <h5 class="modal-title" id="eliminarCarreraModalLabel">Confirmar Eliminación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estás seguro que querés eliminar esta carrera?</p>
+                                    <form action="<?= BASE_URL ?>deleteCarrera" method="POST">
+                                        <input type="hidden" name="carrera_id" value="<?= $carrera->carrera_id ?>">
+                                        <div class="text-end">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
 
                 <?php if (!empty($resultados)): ?>
                     <h2 class="mb-3">Resultados</h2>
@@ -58,7 +165,80 @@
                                     <td><?= htmlspecialchars($r->nombre . ' ' . $r->apellido) ?></td>
                                     <td><?= htmlspecialchars($r->tiempo) ?></td>
                                     <td>
-                                        <a class="btn btn-custom" href="<?= BASE_URL ?>piloto/<?= $r->piloto_id ?>">Ver detalles</a>
+                                        <a class="btn btn-custom" href="<?= BASE_URL ?>piloto/<?= $r->piloto_id ?>">Ver piloto</a>
+                                        <?php if (isset($_SESSION['usuario'])): ?>
+                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarResultadoModal<?= $r->resultado_id ?>">
+                                                Editar Resultado
+                                            </button>
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarResultadoModal">
+                                                Eliminar Resultado
+                                            </button>
+                                            <div class="modal fade" id="editarResultadoModal<?= $r->resultado_id ?>" tabindex="-1" aria-labelledby="editarResultadoModalLabel<?= $r->resultado_id ?>" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-warning text-white">
+                                                            <h5 class="modal-title" id="editarResultadoModalLabel<?= $r->resultado_id ?>">Editar Resultado</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="<?= BASE_URL ?>updateResultado" method="POST">
+                                                                <input type="hidden" name="resultado_id" value="<?= $r->resultado_id ?>">
+                                                                <input type="hidden" name="carrera_id" value="<?= $carrera->carrera_id ?>">
+
+                                                                <div class="mb-3">
+                                                                    <label for="posicion" class="form-label">Posición</label>
+                                                                    <input type="number" class="form-control" name="posicion" id="posicion" value="<?= htmlspecialchars($r->posicion) ?>" min="1" required>
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="tiempo" class="form-label">Tiempo</label>
+                                                                    <input type="text" class="form-control" name="tiempo" id="tiempo" value="<?= htmlspecialchars($r->tiempo) ?>" placeholder="Ej: 1:32.500" required>
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="piloto_id" class="form-label">Piloto</label>
+                                                                    <select class="form-select" name="piloto_id" id="piloto_id" required>
+                                                                        <?php foreach ($pilotos as $p): ?>
+                                                                            <option value="<?= $p->piloto_id ?>" <?= $p->piloto_id == $r->piloto_id ? 'selected' : '' ?>>
+                                                                                <?= htmlspecialchars($p->nombre . ' ' . $p->apellido) ?>
+                                                                            </option>
+                                                                        <?php endforeach; ?>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="text-end">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                                    <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="eliminarResultadoModal" tabindex="-1" aria-labelledby="eliminarResultadoModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-danger text-white">
+                                                            <h5 class="modal-title" id="eliminarCarreraModalLabel">Confirmar Eliminación</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>¿Estás seguro que querés eliminar este resultado?</p>
+                                                            <form action="<?= BASE_URL ?>deleteResultado" method="POST">
+                                                                <!-- //lo necesitamos para la redirección -->
+                                                                <input type="hidden" name="carrera_id" value="<?= $carrera->carrera_id ?>">
+
+                                                                <input type="hidden" name="resultado_id" value="<?= $r->resultado_id ?>">
+                                                                <div class="text-end">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
