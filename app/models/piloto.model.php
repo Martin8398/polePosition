@@ -56,9 +56,10 @@ class PilotoModel
 
     public function updatePiloto($id, $nombre, $apellido)
     {
-        $query = $this->db->prepare("UPDATE pilotos SET nombre = :nombre, apellido = :apellido WHERE piloto_id = :piloto_id");
+        $query = $this->db->prepare("UPDATE pilotos SET nombre = :nombre, apellido = :apellido, foto = :foto WHERE piloto_id = :piloto_id");
         $query->bindParam('nombre', $nombre);
         $query->bindParam('apellido', $apellido);
+        $query->bindParam('foto', $foto);
         $query->bindParam('piloto_id', $id);
         $query->execute();
     }

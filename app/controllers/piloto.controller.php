@@ -103,4 +103,34 @@ class PilotoController
         header("Location: " . BASE_URL . "piloto/" . $id);
         exit;
     }
+    function updatePiloto()
+    {
+        if (!isset($_POST['piloto_id'], $_POST['nombre'], $_POST['apellido'])) {
+            $this->view->showError("Faltan datos del formulario.");
+            return;
+        }
+
+        $piloto_id = filter_var($_POST['piloto_id'], FILTER_VALIDATE_INT);
+        $nombre = $_POST['nombre'];
+        $apellido = $_POST['apellido'];
+        $foto = null;
+
+        if ($piloto_id === false || empty($nombre) || empty($apellido)) {
+            $this->view->showError("Datos inválidos.");
+            return;
+        }
+
+        //Actualizamos el piloto 
+
+        $this->model->updatePiloto($piloto_id, $nombre, $apellido, $foto);
+        header("Location: " . BASE_URL . "piloto" . $piloto_id);
+        exit;
+    }
+
+    function deletePiloto(){
+        $piloto_id = $_POST['piloto_id'];
+        $this->model->deletePiloto($piloto_id);
+        header("Location: " . BASE_URL . "pilotos");
+        exit;
+    }
 }
