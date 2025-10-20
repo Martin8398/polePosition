@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2025 at 07:31 PM
+-- Generation Time: Oct 21, 2025 at 01:02 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,6 +33,15 @@ CREATE TABLE `carreras` (
   `vueltas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `carreras`
+--
+
+INSERT INTO `carreras` (`carrera_id`, `fecha`, `vueltas`) VALUES
+(8, '2025-10-24', 25),
+(9, '2025-11-02', 56),
+(10, '2025-10-30', 24);
+
 -- --------------------------------------------------------
 
 --
@@ -42,8 +51,20 @@ CREATE TABLE `carreras` (
 CREATE TABLE `pilotos` (
   `piloto_id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `apellido` varchar(50) NOT NULL
+  `apellido` varchar(50) NOT NULL,
+  `foto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pilotos`
+--
+
+INSERT INTO `pilotos` (`piloto_id`, `nombre`, `apellido`, `foto`) VALUES
+(1, 'Agustin', 'Ciantini', NULL),
+(21, 'Martin', 'Larrosa', '68f6b5740f759_Screenshot 2025-10-20 191901.jpg'),
+(22, 'Juan', 'Riestra', '68f6b71f4308d_piloto4.jpg'),
+(23, 'Alan', 'Gomez', '68f6b7b0eeda2_piloto5.jpg'),
+(24, 'Lucio', 'Lopez', '68f6b97bb3b36_piloto3.jpg');
 
 -- --------------------------------------------------------
 
@@ -59,6 +80,22 @@ CREATE TABLE `resultados` (
   `tiempo` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `resultados`
+--
+
+INSERT INTO `resultados` (`resultado_id`, `piloto_id`, `carrera_id`, `posicion`, `tiempo`) VALUES
+(13, 21, 8, 1, '01:42:30'),
+(14, 1, 8, 2, '01:42:46'),
+(15, 24, 9, 1, '01:56:54'),
+(16, 1, 9, 2, '01:56:50'),
+(17, 23, 9, 3, '01:59:20'),
+(18, 22, 9, 4, '02:15:24'),
+(19, 1, 10, 1, '01:24:34'),
+(20, 21, 10, 2, '01:25:32'),
+(21, 24, 10, 3, '01:26:45'),
+(22, 23, 10, 4, '01:30:20');
+
 -- --------------------------------------------------------
 
 --
@@ -68,8 +105,15 @@ CREATE TABLE `resultados` (
 CREATE TABLE `usuarios` (
   `usuario_id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `pass` char(50) NOT NULL
+  `pass` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+INSERT INTO `usuarios` (`usuario_id`, `username`, `pass`) VALUES
+(3, 'webadmin', '$2y$10$MpaqutvRqh1Pub4IIERIIeJiFaFGpKwlclvjd.zHfUKhNsuxkdhlu');
 
 --
 -- Indexes for dumped tables
@@ -92,8 +136,8 @@ ALTER TABLE `pilotos`
 --
 ALTER TABLE `resultados`
   ADD PRIMARY KEY (`resultado_id`),
-  ADD UNIQUE KEY `fk_piloto_id` (`piloto_id`),
-  ADD KEY `fk_resultados_carrera` (`carrera_id`);
+  ADD KEY `fk_resultados_carrera` (`carrera_id`),
+  ADD KEY `fk_piloto_id` (`piloto_id`) USING BTREE;
 
 --
 -- Indexes for table `usuarios`
@@ -109,25 +153,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `carreras`
 --
 ALTER TABLE `carreras`
-  MODIFY `carrera_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `carrera_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `pilotos`
 --
 ALTER TABLE `pilotos`
-  MODIFY `piloto_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `piloto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `resultados`
 --
 ALTER TABLE `resultados`
-  MODIFY `resultado_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `resultado_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

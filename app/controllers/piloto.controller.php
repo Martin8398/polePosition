@@ -27,7 +27,7 @@ class PilotoController
             $pilotos = $this->model->getPilotos();
         }
 
-        // Validar que el template exista
+        // Valida que el template exista
         $templatePath = 'templates/' . $vista;
         if (!file_exists($templatePath)) {
             die("Template no encontrado: $vista");
@@ -92,7 +92,7 @@ class PilotoController
             }
 
             if (move_uploaded_file($_FILES['foto']['tmp_name'], $targetFile)) {
-                $foto = $fileName; // Guardamos solo el nombre del archivo en la BD
+                $foto = $fileName; // Guardamos solo el nombre del archivo en la BD proque sino da problemas al mostrarla luego
             } else {
                 die("Error al subir la imagen.");
             }
@@ -119,8 +119,6 @@ class PilotoController
             $this->view->showError("Datos inválidos.");
             return;
         }
-
-        //Actualizamos el piloto 
 
         $this->model->updatePiloto($piloto_id, $nombre, $apellido, $foto);
         header("Location: " . BASE_URL . "editarPilotos");
