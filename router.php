@@ -157,10 +157,16 @@ switch ($params[0]) {
         $controller->showPilotos('adminPilotos.phtml');
         break;
 
-    case 'eliminarPiloto':
+    case 'updatePiloto':
         sessionAuthMiddleware($res);
-        $model = new PilotoModel();
-        $controller = new PilotoController($model);
+        $controller = new PilotoController();
+        $controller->updatePiloto();
+        break;
+
+    case 'deletePiloto':
+        sessionAuthMiddleware($res);
+        $controller = new PilotoController();
+        $controller->deletePiloto();
         break;
 
     default:

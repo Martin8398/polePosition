@@ -123,14 +123,14 @@ class PilotoController
         //Actualizamos el piloto 
 
         $this->model->updatePiloto($piloto_id, $nombre, $apellido, $foto);
-        header("Location: " . BASE_URL . "piloto" . $piloto_id);
+        header("Location: " . BASE_URL . "editarPilotos");
         exit;
     }
 
     function deletePiloto(){
         $piloto_id = $_POST['piloto_id'];
         $this->model->deletePiloto($piloto_id);
-        header("Location: " . BASE_URL . "pilotos");
+        header("Location: " . BASE_URL . "editarPilotos");
         exit;
     }
 }
