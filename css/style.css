@@ -1,0 +1,104 @@
+* {
+  font-family: "Quicksand", sans-serif;
+  /* background-color:rgb(44, 54, 57) ; */
+  /* background-color: rgb(0, 43, 42); */
+  /* color: white !important; */
+}
+
+.bg-custom {
+  background-color: rgb(0, 43, 42);
+}
+
+.bg-custom2 {
+  background-color: #ffee0086;
+}
+
+.navbar-brand {
+  color: #ffee00 !important;
+}
+
+.navbar-brand:hover {
+  color: white !important;
+}
+
+.custom-navbar {
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.custom-navbar a {
+  color: white;
+}
+
+.custom-navbar a:hover {
+  color: #ffee00;
+}
+
+.custom-navbar .btn-custom {
+  color: white;
+  border: 1px solid white;
+}
+
+.custom-navbar .btn-custom:hover {
+  transition: 0.3s;
+  border: 1px solid rgb(0, 43, 42);
+  background-color: rgb(0, 43, 42);
+  color: white;
+}
+
+.box-area {
+  /* background-color: rgba(0, 0, 0, 0.1); */
+  border-radius: 1rem;
+  overflow: hidden;
+  width: 100%;
+}
+
+.login-image-container {
+  border-radius: 1rem;
+  /* background-color: rgb(0, 43, 42); */
+}
+
+.btn-custom {
+  height: 100%;
+  transition: 0.3s;
+  background-color: transparent;
+  border: solid 1px rgb(0, 43, 42);
+  color: rgb(0, 43, 42);
+}
+
+.btn-custom:hover {
+  transition: 0.3s;
+  background-color: rgb(0, 43, 42);
+  color: white;
+}
+
+/* Fondo general */
+.piloto-page {
+  background-color: rgb(0, 43, 42);
+  min-height: 100vh;
+  color: white;
+}
+
+/* Card del piloto */
+.piloto-card {
+  background-color: rgb(44, 54, 57);
+  border-left: 6px solid #ffee0086;
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.piloto-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.img-custom {
+  margin: 1% 1%;
+  /* background-color: yellow; */
+}
+
+.img-custom img {
+  border-radius: 100%;
+  width: 15%;
+}

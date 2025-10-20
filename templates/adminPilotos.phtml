@@ -1,0 +1,91 @@
+<?php require 'templates/layout/header.phtml' ?>
+
+<div class="d-flex flex-column min-vh-100">
+    <main class="flex-grow-1">
+        <div class="container py-5 mt-5">
+            <h1 class="mb-4">Editar Pilotos</h1>
+
+            <?php if (!empty($pilotos)): ?>
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($pilotos as $p): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($p->nombre) ?></td>
+                                <td><?= htmlspecialchars($p->apellido) ?></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarPilotoModal">
+                                        Editar
+                                    </button>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarPilotoModal">
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <div class="modal fade" id="editarPilotoModal" tabindex="-1" aria-labelledby="editarPilotoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-warning text-white">
+                                <h5 class="modal-title" id="editarPilotoModalLabel">Editar Piloto</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="<?= BASE_URL ?>updatePiloto" method="POST">
+                                    <input type="hidden" name="piloto_id" value="<?= $piloto->piloto_id ?>">
+
+                                    <div class="mb-3">
+                                        <label for="nombre" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" name="nombre" id="nombre" value="<?= htmlspecialchars($nombre->nombre) ?>" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="apellito" class="form-label">Apellido</label>
+                                        <input type="text" class="form-control" name="apellido" id="apellido" value="<?= htmlspecialchars($apellido->apellido) ?>" required>
+                                    </div>
+
+                                    <div class="text-end">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="eliminarPilotoModal" tabindex="-1" aria-labelledby="eliminarPilotoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger text-white">
+                                <h5 class="modal-title" id="eliminarPilotoModalLabel">Confirmar Eliminación</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿Estás seguro que querés eliminar este piloto`?</p>
+                                <form action="<?= BASE_URL ?>deletePiloto" method="POST">
+                                    <input type="hidden" name="piloto_id" value="<?= $piloto->piloto_id ?>">
+                                    <div class="text-end">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="alert alert-info">No hay pilotos cargados.</div>
+            <?php endif; ?>
+        </div>
+    </main>
+
+    <?php require 'templates/layout/footer.phtml' ?>
+</div>
