@@ -1,5 +1,5 @@
 <?php
-const MYSQLI_USERNAME = 'root';
-const MYSQLI_PASSWORD = '';
-const MYSQLI_DBNAME = 'poleposition';
-const MYSQLI_HOST = 'localhost';
+const MYSQL_USER = 'root';
+const MYSQL_PASS = '';
+const MYSQL_DB = 'poleposition';
+const MYSQL_HOST = 'localhost';

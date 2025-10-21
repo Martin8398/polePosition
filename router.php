@@ -17,7 +17,10 @@ require_once './app/controllers/resultado.controller.php';
 
 require_once 'app/models/resultado.model.php';
 require_once 'app/models/piloto.model.php';
+require_once 'app/models/carrera.model.php';
+require_once 'app/models/deploy.model.php';
 
+$modelDeploy = new ModelDeploy();
 
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 

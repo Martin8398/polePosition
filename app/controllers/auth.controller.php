@@ -7,7 +7,7 @@ class AuthController
 {
     private $model;
     private $view;
-    
+
 
     function __construct()
     {
@@ -24,9 +24,10 @@ class AuthController
     {
         //script para hashear contraseñas si necesitas crear un user nuevo
 
-        //  $password = 'admin'; 
+        // $password = 'admin';
         // $hash = password_hash($password, PASSWORD_DEFAULT);
-        // echo $hash;die();
+        // echo $hash;
+        // die();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!isset($_POST['username']) || empty($_POST['username'])) {
