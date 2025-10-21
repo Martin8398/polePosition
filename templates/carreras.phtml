@@ -1,39 +1,62 @@
 <?php require 'templates/layout/header.phtml' ?>
 
-<div class="d-flex flex-column min-vh-100">
+<div class="d-flex flex-column min-vh-100 bg-light">
     <main class="flex-grow-1">
         <div class="container py-5 mt-5">
-            <h1 class="mb-4">Carreras</h1>
+            
+            <h1 class="mb-4 display-5 fw-light text-dark border-bottom pb-2">
+                <span class="fw-bolder text-primary">Lista</span> de Carreras
+            </h1>
 
             <?php if (!empty($carreras)): ?>
-                <table class="table table-striped table-bordered">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Vueltas</th>
-                            <th>Ganador</th>
-                            <th>Apellido</th>
-                            <th>Tiempo</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($carreras as $c): ?>
+                
+                <div class="table-responsive bg-white shadow-sm rounded-4">
+                    <table class="table table-borderless table-striped align-middle text-center mb-0">
+                        
+                        <thead class="bg-white text-muted">
                             <tr>
-                                <td><?= htmlspecialchars($c->fecha) ?></td>
-                                <td><?= htmlspecialchars($c->vueltas) ?></td>
-                                <td><?= $c->ganador ? htmlspecialchars($c->ganador->nombre) : 'Sin resultados' ?></td>
-                                <td><?= $c->ganador ? htmlspecialchars($c->ganador->apellido) : 'Sin resultados' ?></td>
-                                <td><?= $c->ganador ? htmlspecialchars($c->ganador->tiempo) : '-' ?></td>
-                                <td>
-                                    <a class="btn btn-custom" href="<?= BASE_URL ?>carrera/<?= $c->carrera_id ?>">Ver detalles</a>
-                                </td>
+                                <th scope="col" class="text-start ps-4 fw-normal">Fecha</th>
+                                <th scope="col" class="fw-normal">Vueltas</th>
+                                <th scope="col" class="fw-normal">Ganador</th> 
+                                <th scope="col" class="fw-normal">Tiempo</th>
+                                <th scope="col" class="fw-normal"></th> 
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($carreras as $c): ?>
+                                
+                                <tr>
+                                    <td class="text-start ps-4 fw-semibold text-dark">
+                                        <?= htmlspecialchars($c->fecha) ?>
+                                    </td>
+                                    <td>
+                                        <?= htmlspecialchars($c->vueltas) ?>
+                                    </td>
+                                    
+                                    <td class="fw-bold text-dark">
+                                        <?= $c->ganador 
+                                            ? htmlspecialchars($c->ganador->nombre) . ' ' . htmlspecialchars($c->ganador->apellido) 
+                                            : '<span class="text-muted fst-italic">Sin Datos</span>' ?>
+                                    </td>
+                                    
+                                    <td>
+                                        <?= $c->ganador ? htmlspecialchars($c->ganador->tiempo) : '-' ?>
+                                    </td>
+                                    
+                                    <td>
+                                        <a class="btn btn-custom" href="<?= BASE_URL ?>carrera/<?= $c->carrera_id ?>">
+                                            Ver detalles
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             <?php else: ?>
-                <div class="alert alert-info">No hay carreras cargadas.</div>
+                <div class="alert alert-info shadow-sm mt-3 rounded-3">
+                    <i class="bi bi-info-circle-fill me-2"></i> No hay carreras cargadas en el sistema.
+                </div>
             <?php endif; ?>
         </div>
     </main>

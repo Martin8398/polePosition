@@ -1,11 +1,82 @@
 <?php require 'templates/layout/header.phtml' ?>
-<div class="d-flex flex-column min-vh-100">
-    <main class="flex-grow-1">
-        <h1>Hola, <span class="navbar-text me-3"><?= htmlspecialchars($_SESSION['usuario']); ?></span></h1>
-        <h2>Contenido del panel de administración</h2>
-         <a class="btn btn-custom" href="<?= BASE_URL ?>pilotoNuevo">Nuevo Piloto</a>
-         <a class="btn btn-custom" href="<?= BASE_URL ?>editarPilotos">Editar Pilotos</a>
-         <a class="btn btn-custom" href="<?= BASE_URL ?>carreraNueva">Nueva Carrera</a>
+
+<div class="d-flex flex-column min-vh-100 bg-light">
+    <main class="flex-grow-1 container py-5 mt-5">
+        
+        <header class="text-center mb-5 pb-3 border-bottom">
+            <h1 class="display-5 fw-light text-dark">Panel de Gestión | <span class="fw-bolder text-primary">Operaciones</span></h1>
+            <p class="lead text-muted mt-3">
+                Acceso para el usuario: <span class="fw-semibold text-secondary"><?= htmlspecialchars($_SESSION['usuario']); ?></span>
+            </p>
+        </header>
+
+        <section class="row justify-content-center g-4">
+            
+            <div class="col-md-4 col-lg-3">
+                <div class="card shadow-lg h-100 border border-3 border-light rounded-3">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <i class="bi bi-person-plus-fill display-4 text-primary mb-3"></i>
+                            <h5 class="card-title text-dark mb-2">Crear Piloto</h5>
+                            <p class="card-text text-secondary fs-6">Formulario de registro para nuevos competidores.</p>
+                        </div>
+                        <a class="btn w-100 mt-4 btn-outline-primary" href="<?= BASE_URL ?>pilotoNuevo">
+                            Registrar Piloto
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+                <div class="card shadow-lg h-100 border border-3 border-light rounded-3">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <i class="bi bi-pencil-square display-4 text-info mb-3"></i>
+                            <h5 class="card-title text-dark mb-2">Administrar Pilotos</h5>
+                            <p class="card-text text-secondary fs-6">Revisar y editar el listado de todos los pilotos.</p>
+                        </div>
+                        <a class="btn w-100 mt-4 btn-outline-info" href="<?= BASE_URL ?>editarPilotos">
+                            Editar Piloto
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+                <div class="card shadow-lg h-100 border border-3 border-light rounded-3">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <i class="bi bi-flag-fill display-4 text-success mb-3"></i>
+                            <h5 class="card-title text-dark mb-2">Programar Carrera</h5>
+                            <p class="card-text text-secondary fs-6">Configuración de un nuevo evento/carrera.</p>
+                        </div>
+                        <a class="btn w-100 mt-4 btn-outline-success" href="<?= BASE_URL ?>carreraNueva">
+                            Nueva Carrera
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="row justify-content-center mt-5 pt-4">
+            <div class="col-lg-8">
+                <div class="card shadow-sm border-0 rounded-3 bg-white">
+                    <div class="card-body p-4">
+                        <h4 class="card-title text-secondary border-bottom pb-2 mb-3">Resumen del día:</h4>
+                        <p class="card-text text-muted">Hoy el Kartódromo PolePosition se viste de gala para recibir el Gran Premio de Primavera 2025, una jornada cargada de adrenalina, velocidad y competencia.
+Se espera la participación de más de 60 pilotos distribuidos en distintas categorías, incluyendo Juvenil, Amateur y Profesional, con representantes de toda la región.
+
+El evento comenzará a las 10:00 hs, con las pruebas clasificatorias, seguidas por las carreras finales a partir de las 14:00 hs.
+La organización estima una concurrencia de más de 500 espectadores, entre familiares, equipos técnicos y aficionados al automovilismo.</p>
+                        <ul class="list-unstyled text-muted small mt-3">
+                            <li><i class="bi bi-check-circle-fill text-success me-2"></i> Ultima actualización: Hace 2 horas.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
+
     <?php require 'templates/layout/footer.phtml' ?>
 </div>
