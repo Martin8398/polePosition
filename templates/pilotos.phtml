@@ -4,29 +4,62 @@
     <main class="flex-grow-1">
 
         <div class="container py-5 mt-5">
-            <div class="row">
-                <h1 class="mb-4">Pilotos</h1>
-                <form method="GET" action="<?= BASE_URL ?>pilotos" class="mb-3 d-flex">
-                    <input type="text" name="q" class="form-control me-2" placeholder="Buscar piloto por nombre o apellido"
-                        value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>">
-                    <button type="submit" class="btn btn-custom">Buscar</button>
-                </form>
+            
+            <div class="row mb-5">
+                <div class="col-12">
+            <h1 class="mb-4 display-5 fw-light">
+                <span class="fw-bolder text-primary">Pilotos</span> de Carreras
+            </h1>
+                </div>
+                <div class="col-12">
+                    <form method="GET" action="<?= BASE_URL ?>pilotos" class="mb-3 d-flex">
+                        <input type="text" name="q" class="form-control me-2" placeholder="Buscar piloto por nombre o apellido"
+                            value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>">
+                        <button type="submit" class="btn btn-custom">Buscar</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row g-4"> 
+                <?php 
+                // Variable para rastrear si se encontraron pilotos (para el mensaje al final)
+                $pilotos_encontrados = false;
+                if (!empty($pilotos)) {
+                    $pilotos_encontrados = true;
+                }
+                ?>
+
                 <?php foreach ($pilotos as $p): ?>
-                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                        <div class="card h-100 shadow">
-                            <?php if (!empty($p->foto) && file_exists("assets/pilotos/" . $p->foto)): ?>
-                                <img src="<?= BASE_URL ?>assets/pilotos/<?= htmlspecialchars($p->foto) ?>" class="card-img-top" alt="<?= htmlspecialchars($p->nombre) ?>">
-                            <?php else: ?>
-                                <img src="<?= BASE_URL ?>assets/pilotos/pilotoDefault.jpg" class="card-img-top" alt="Piloto sin foto">
-                            <?php endif; ?>
-                            <div class="card-body text-center d-flex flex-column">
-                                <h5 class="card-title"><?= htmlspecialchars($p->nombre) . " " . htmlspecialchars($p->apellido) ?></h5>
-                                <a class="btn btn-custom " href="<?= BASE_URL ?>piloto/<?= $p->piloto_id ?>">Mas Info</a>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="card h-100 shadow-sm border-0 overflow-hidden rounded-3">
+                            
+                            <div class="card-img-top-wrapper" style="height: 250px; overflow: hidden;">
+                                <?php 
+                                    $fotoSrc = (!empty($p->foto) && file_exists("assets/pilotos/" . $p->foto)) 
+                                        ? BASE_URL . "assets/pilotos/" . htmlspecialchars($p->foto) 
+                                        : BASE_URL . "assets/pilotos/pilotoDefault.jpg";
+                                ?>
+                                <img src="<?= $fotoSrc ?>" 
+                                     class="w-100 h-100" 
+                                     alt="<?= htmlspecialchars($p->nombre) . ' ' . htmlspecialchars($p->apellido) ?>" 
+                                     style="object-fit: cover;"> 
+                            </div>
+
+                            <div class="card-body text-center d-flex flex-column justify-content-end p-3">
+                                <h5 class="card-title fw-bold mb-3"><?= htmlspecialchars($p->nombre) . " " . htmlspecialchars($p->apellido) ?></h5>
+                                <a class="btn btn-custom" href="<?= BASE_URL ?>piloto/<?= $p->piloto_id ?>">Ver más</a>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
+                
+                <?php if (!$pilotos_encontrados): ?>
+                    <div class="col-12 text-center py-5">
+                        <p class="lead text-muted">No se encontraron pilotos.</p>
+                    </div>
+                <?php endif; ?>
             </div>
+            
         </div>
     </main>
 
